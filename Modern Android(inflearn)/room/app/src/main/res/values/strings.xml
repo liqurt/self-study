@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">room</string>
+    <string name="MainActivity__add_button__text">추가</string>
+    <string name="MainActivity__todo_edit__hint">할 일</string>
 </resources>

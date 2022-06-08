@@ -1,11 +1,14 @@
 package com.example.room
 
+import android.app.Application
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import androidx.lifecycle.Observer
-import androidx.room.Room
+import android.util.Log
+import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
 import com.example.room.databinding.ActivityMainBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,17 +19,21 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-name")
-            .allowMainThreadQueries().build()
 
+        val viewModel = ViewModelProviders.of(this)[MainViewModel::class.java]
+
+
+        Log.d("AAAAA", "onCreate: ${viewModel.getApplication<Application>()}")
 
         // this(=MainActivity) 에서 getAll()의 결과를 항시 관측할꺼임, 바뀐게 있다면(onChanged) {} 안의 람다 수행
-        db.todoDao().getAll().observe(this) {
+        viewModel.getAll().observe(this) {
             binding.resultText.text = it.toString()
         }
 
         binding.addButton.setOnClickListener {
-            db.todoDao().insert(Todo(binding.todoEdit.text.toString()))
+            lifecycleScope.launch (Dispatchers.IO){
+                viewModel.insert(Todo(binding.todoEdit.text.toString()))
+            }
         }
 
     }

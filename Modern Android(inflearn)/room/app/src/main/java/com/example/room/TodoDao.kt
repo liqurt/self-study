@@ -9,11 +9,11 @@ interface TodoDao {
     fun getAll() : LiveData<List<Todo>> // getAll() 한 결과를 옵저빙할꺼임.
 
     @Insert
-    fun insert(todo: Todo)
+    suspend fun insert(todo: Todo)
 
     @Update
-    fun update(todo: Todo)
+    suspend fun update(todo: Todo)
 
     @Delete
-    fun delete(todo: Todo)
+    suspend fun delete(todo: Todo)
 }

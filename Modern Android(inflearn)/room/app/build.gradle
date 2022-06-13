@@ -34,6 +34,11 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+    dataBinding {
+        enabled = true
+    }
+
 }
 
 dependencies {
@@ -49,14 +54,19 @@ dependencies {
     // Room
     implementation 'androidx.room:room-runtime:2.4.2'
     kapt 'androidx.room:room-compiler:2.4.2'
+    implementation "androidx.room:room-ktx:2.4.2"
 
     // Viewmodel
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
 
     // Coroutine
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1")
 
     // LifecycleScope
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
+
+    // ViewModelScope
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
 
 }
